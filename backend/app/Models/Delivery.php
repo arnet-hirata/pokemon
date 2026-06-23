@@ -10,4 +10,7 @@ class Delivery extends Model
 {
     //
     use HasFactory, Notifiable;
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
