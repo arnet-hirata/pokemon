@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-  
+ 
 
         
         $this->call([
@@ -36,10 +36,14 @@ class DatabaseSeeder extends Seeder
         Delivery::factory(200)->create();
       
             $this->call([
+              ProductSeeder::class,
             FavoriteSeeder::class,
             OrderDetailSeeder::class,
             OrderSeeder::class,
             StockSeeder::class,
+            ProductImageSeeder::class,
+            CartItemSeeder::class,
+
         ]);
     }
 }
