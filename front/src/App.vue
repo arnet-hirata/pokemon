@@ -5,17 +5,15 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
+    
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
-        <RouterLink to="/">カテゴリー</RouterLink>
-        <RouterLink to="/about">お気に入り</RouterLink>
-        <RouterLink to="/">カート</RouterLink>
-        <RouterLink to="/about">検索</RouterLink>
-        <RouterLink to="/about">マイページ</RouterLink>
+        <RouterLink to="/index">トップページ</RouterLink>
+        <RouterLink to="/category">カテゴリー</RouterLink>
+        <RouterLink to="/favorite">お気に入り</RouterLink>
+        <RouterLink to="/cart">カート</RouterLink>
+        <RouterLink to="/search">検索</RouterLink>
+        <RouterLink to="/mypage">マイページ</RouterLink>
       </nav>
     </div>
   </header>
