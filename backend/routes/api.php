@@ -16,10 +16,11 @@ Route::apiResource('admin/products', AdminProductController::class);
 Route::get('products/search', [ProductsController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login'])->name('api.login');
+Route::apiResource('/products', ProductsController::class);
 
 // auth:sanctum で囲むとトークン必須（ログイン必要）
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn (Request $request) => $request->user());
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::apiResource('/products', ProductsController::class);
+    
 });

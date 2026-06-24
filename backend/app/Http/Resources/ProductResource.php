@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\ProductImageResource;
 
 class ProductResource extends JsonResource
 {
@@ -17,10 +19,15 @@ class ProductResource extends JsonResource
         // return parent::toArray($request);
         return[
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'pay_method' => $this->pay_method,
-            'total_price' => $this->total_price,
-            'order_status' => $this->order_status,
+            'name' => $this->name,
+            'price' => $this->price,
+            'category_id' => $this->category_id,
+            'release_date' => $this->release_date,
+            'text' => $this->text,
+            'stock' => $this->stock,
+            'product_images'=>$this->whenLoaded('product_images',fn()=>
+            ProductImageResource::collection($this->product_images)
+            ),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
         ];

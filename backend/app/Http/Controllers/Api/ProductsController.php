@@ -15,7 +15,7 @@ class ProductsController extends Controller
     public function index()
     {
         //
-        $products = Product::all();
+        $products = Product::with('product_images')->get();
         return ProductResource::collection($products);
     }
 
