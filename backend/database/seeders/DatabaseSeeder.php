@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         Delivery::factory(200)->create();
       
             $this->call([
-              ProductSeeder::class,
+            ProductSeeder::class,
             FavoriteSeeder::class,
             OrderDetailSeeder::class,
             OrderSeeder::class,
