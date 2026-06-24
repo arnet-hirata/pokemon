@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
 // 管理者
 Route::apiResource('admin/products', AdminProductController::class);
 
+Route::get('products/search', [ProductsController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login'])->name('api.login');
 
