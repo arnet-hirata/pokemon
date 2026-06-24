@@ -50,4 +50,13 @@ class ProductsController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        return Product::where(
+            'name',
+            'like',
+            '%' . $request->name . '%'
+        )->get();
+    }
 }
