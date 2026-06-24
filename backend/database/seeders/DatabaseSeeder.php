@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
             $this->call([
             ProductSeeder::class,
             FavoriteSeeder::class,
-            OrderDetailSeeder::class,
             OrderSeeder::class,
+            OrderDetailSeeder::class,
             StockSeeder::class,
             ProductImageSeeder::class,
             CartItemSeeder::class,
