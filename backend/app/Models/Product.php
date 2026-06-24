@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -16,8 +16,6 @@ class Product extends Model
         return $this->hasMany(OrderDetail::class);
     }
     public function categories(){
-        // playersテーブルに設定したteam_idで関連付けする
-        // $this->hasMany(<連携先クラス名>::class)
         return $this->belongsTo(Category::class);
     }
 }
