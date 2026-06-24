@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->foreignId('category_id');
+            $table->date('release_date');
             $table->text('text');
             $table->integer('stock');
             $table->timestamps();
