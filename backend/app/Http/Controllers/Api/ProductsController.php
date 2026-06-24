@@ -21,7 +21,7 @@ class ProductsController extends Controller
         }
         return response()->json($query->get());
         //
-        $products = Product::all();
+        $products = Product::with('product_images')->get();
         return ProductResource::collection($products);
     }
 

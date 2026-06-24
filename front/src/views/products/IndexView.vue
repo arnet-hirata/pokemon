@@ -1,5 +1,29 @@
 <script setup>
-    
+    import { ref, onMounted } from 'vue'
+    import { apiClient } from '@/utils/api.js'
+
+    const products = ref([])
+    const loading = ref(true)
+    const error = ref(null)
+
+    const loadProducts = async () => {
+    try {
+        loading.value = true
+        error.value = null
+        const response = await apiClient.get('/products')
+        products.value = response.data || response
+        console.log(products)
+    } catch (err) {
+        console.error('書籍の取得に失敗:', err)
+        error.value = '書籍の取得に失敗しました'
+    } finally {
+        loading.value = false
+    }
+    }
+
+    onMounted(() => {
+    loadProducts()
+    })
 </script>
 <template>
     <div>
@@ -7,24 +31,24 @@
             <h1>新商品</h1>
         </div>
         <div>
-            <div>
-                <div v-for="product_image in product_images" :key="product_image.id">
+            <div v-for="product in products" :key="product.id">
+                <div v-for="product_image in product.product_images" :key="product_image.id">
                     {{ product_image.path }}
                 </div>
-                <div v-for="product in products" :key="product.id">
+                <div>
                     {{ product.name }}
                 </div>
-                <div v-for="product in products" :key="product.id">
+                <div>
                     {{ product.text }}
                 </div>
-                <div v-for="product in products" :key="product.id">
-                    {{ product.price }}
+                <div>
+                    ￥{{ product.price }}
                 </div>
             </div>
         </div>
         <div>
             <button>
-
+                新商品をもっと見る
             </button>
         </div>
     </div>
