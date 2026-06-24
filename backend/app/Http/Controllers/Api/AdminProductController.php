@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product; 
-use App\Http\Resources\ProductResource; // 追記
+use App\Models\Product; //商品
+use App\Models\ProductImage; //商品画像
+use App\Http\Resources\ProductResource; 
 use App\Http\Requests\StoreProductRequest;
-use Nette\Schema\ValidationException;
+use Illuminate\Validation\ValidationException; // バリデーションエラーを捕捉するために追加
+use Illuminate\Support\Facades\DB; 
+
 
 class AdminProductController extends Controller
 {
@@ -29,9 +32,29 @@ class AdminProductController extends Controller
     {
         //
         try{
+            // productテーブルへ新規商品を登録
             $product = Product::create($request->validated());
+
+            // product_imageテーブルへ商品画像を挿入
+
+            foreach($request->file('images') as $image){
+
+              // 画像ファイルを storage/app/public/images に保存
+                $path = $image->store('images', 'public');    
+
+            $product->product_images()->create($request->validated());
+            }
+
+
+
+            return (new ProductResource($product))
+                ->additional(['message' => '商品情報が登録されました'])
+                ->response()
+                ->setStatusCode(201);
         }catch(ValidationException $e){
-            
+            return response()->json([
+                'errors' => $e->errors()
+            ], 422);
         }
     }
 
