@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product; //商品
 use App\Models\ProductImage; //商品画像
-use App\Http\Resources\ProductResource; 
+use App\Http\Resources\AdminProductResource; 
 use App\Http\Requests\StoreProductRequest;
 use Illuminate\Validation\ValidationException; // バリデーションエラーを捕捉するために追加
-use Illuminate\Support\Facades\DB; 
 
 
 class AdminProductController extends Controller
@@ -21,7 +20,7 @@ class AdminProductController extends Controller
     {
         //
         $products = Product::all();
-        return ProductResource::collection($products);
+        return AdminProductResource::collection($products);
 
     }
 
@@ -36,18 +35,23 @@ class AdminProductController extends Controller
             $product = Product::create($request->validated());
 
             // product_imageテーブルへ商品画像を挿入
-
+            if ($request->hasFile('images')) {
             foreach($request->file('images') as $image){
 
-              // 画像ファイルを storage/app/public/images に保存
-                $path = $image->store('images', 'public');    
+            // 画像ファイルを storage/app/public/images に保存
+            $image_name = $image->getClientOriginalName();
+            $path = $image->store('images', 'public');    
 
-            $product->product_images()->create($request->validated());
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image_name' => $image_name,
+                'path'    => $path,
+            ]);
+            // dd($request->all());
+            }
             }
 
-
-
-            return (new ProductResource($product))
+            return (new AdminProductResource($product))
                 ->additional(['message' => '商品情報が登録されました'])
                 ->response()
                 ->setStatusCode(201);
@@ -64,12 +68,17 @@ class AdminProductController extends Controller
     public function show(string $id)
     {
         //
+            $product = Product::with('product_images')->findOrFail($id);
+        // 単一データの場合は、ProductResource を適用
+        return new AdminProductResource($product);
+
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreProductRequest $request, string $id)
     {
         //
     }
