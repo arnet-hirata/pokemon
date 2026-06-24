@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; // 必須
 use App\Models\User;   // 必須
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -70,7 +72,7 @@ class AuthController extends Controller
     }
 
 
-    
+
     public function index()
     {
         //
@@ -82,6 +84,7 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -98,6 +101,19 @@ class AuthController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $user = User::findOrFail(Auth::id());
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->tel = $request->tel;
+        $user->postal = $request->postal;
+        $user->address = $request->address;
+        $user->password = $request->password->hash();
+        $user->save();
+
+        return  (new UserResource($user))
+        ->additional(['message' => '商品情報が更新されました'])
+        ->response()
+        ->setStatusCode(201);
     }
 
     /**

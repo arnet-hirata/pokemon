@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('postal');
             $table->string('address');
             $table->string('password');
-            $table->integer('role');
+            $table->integer('role')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
