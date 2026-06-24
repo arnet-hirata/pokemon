@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Http\Resources\OrderResource;
 
 class OrdersController extends Controller
 {
@@ -13,6 +15,8 @@ class OrdersController extends Controller
     public function index()
     {
         //
+        $orders = Order::all();
+        return OrderResource::collection($orders);
     }
 
     /**
