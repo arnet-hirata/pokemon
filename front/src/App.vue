@@ -11,8 +11,11 @@ import HelloWorld from './components/HelloWorld.vue'
       <HelloWorld msg="You did it!" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">カテゴリー</RouterLink>
+        <RouterLink to="/about">お気に入り</RouterLink>
+        <RouterLink to="/">カート</RouterLink>
+        <RouterLink to="/about">検索</RouterLink>
+        <RouterLink to="/about">マイページ</RouterLink>
       </nav>
     </div>
   </header>
