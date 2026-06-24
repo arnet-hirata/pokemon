@@ -12,8 +12,14 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Product::query();
+
+        if($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        return response()->json($query->get());
         //
         $products = Product::with('product_images')->get();
         return ProductResource::collection($products);
@@ -49,14 +55,5 @@ class ProductsController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function search(Request $request)
-    {
-        return Product::where(
-            'name',
-            'like',
-            '%' . $request->name . '%'
-        )->get();
     }
 }
