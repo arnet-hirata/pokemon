@@ -5,7 +5,11 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Order;
 use App\Http\Resources\MypageResource;
+use App\Http\Resources\OrderResource;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 
 class MypageController extends Controller
 {
@@ -15,12 +19,15 @@ class MypageController extends Controller
     public function index(Request $request)
     {
         //
-        $users = User::with([
-            'orders.order_details.product'
+        $orders= Order::with([
+            'user',
+            'order_details.product'
         ])
-        ->findOrFail($request->user()->id);
-        ;
-        return MypageResource::collection($users);
+        ->where('user_id',Auth::id())
+        ->latest()
+        ->get();
+        return OrderResource::collection($orders);
+        
     }
 
     /**
