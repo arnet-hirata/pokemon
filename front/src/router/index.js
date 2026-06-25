@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 import IndexView from '@/views/products/IndexView.vue'
+import UserEditView from '@/views/UserEditView.vue'
+import MypageView from '@/views/MypageView.vue'
 
 
 const router = createRouter({
@@ -42,6 +44,16 @@ const router = createRouter({
     //   name: 'ProductSearch',
     //   component: ProductSearchView
     // }
+    {
+      path: '/user/edit',
+      name: 'edit',
+      component: UserEditView,
+    },
+    {
+      path: '/mypage',
+      name: 'mypage',
+      component: MypageView,
+    },
   ],
 })
 
