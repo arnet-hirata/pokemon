@@ -11,15 +11,21 @@ const search = async () => {
     try{
         loading.value = true
         const response = await apiClient.get(`/products/search?name=${encodeURIComponent(keyword.value)}`)
-console.log(response)
 
         products.value = response.data || response
+
+
     }catch (error) {
         console.error(error)
     }finally{
         loading.value = false
     }
 }
+const addToCartItem = async (productId) => {
+            const result = await apiClient.post('/cart',{
+                product_id: productId
+            })
+        }
     onMounted(() => {
         search()
     })
@@ -42,6 +48,10 @@ console.log(response)
             <tr>
                 <th>商品名</th>
                 <th>値段</th>
+                <th>販売日</th>
+                <th>説明欄</th>
+                <th>在庫数</th>
+                <th>購入</th>
             </tr>
         </thead>
         <tbody>
@@ -49,8 +59,14 @@ console.log(response)
             v-for="product in products"
             :key="product.id"
             >
-        <td>{{  product.name }}</td>
+        <td>{{ product.name }}</td>
         <td>{{ product.price }}</td>
+        <td>{{ product.release_date }}</td>
+        <td>{{ product.text }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+            <button @click="addToCartItem(product.id)">カートに追加</button>
+        </td>
     </tr>
 </tbody>
         </table>

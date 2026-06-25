@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AdminProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\api\MypageController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\Api\CartItemController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -13,7 +14,7 @@ Route::get('/user', function (Request $request) {
 
 // 管理者
 Route::apiResource('admin/products', AdminProductController::class);
-
+Route::post('/cart', [CartItemController::class, 'store']);
 Route::get('/products/search', [ProductsController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login'])->name('api.login');

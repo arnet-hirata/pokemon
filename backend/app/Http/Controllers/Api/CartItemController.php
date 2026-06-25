@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 
 class CartItemController extends Controller
@@ -20,7 +21,18 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // var_dump($request);
+        $request->validate([
+            'product_id' => 'required|exists:products,id'
+        ]);
+
+        $cart = CartItem::create([
+            'product_id' => $request->product_id
+        ]);
+        return response()->json([
+            'message' => 'カートに追加しました',
+            'cart' => $cart
+        ]);
     }
 
     /**
