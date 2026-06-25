@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ProductImageResource;
+use App\Http\Resources\CategoryResource;
 
 class AdminProductResource extends JsonResource
 {
@@ -21,11 +22,12 @@ class AdminProductResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'category_id' => $this->category_id,
+            "category_name" =>  $this->whenLoaded('category',fn() => $this->category->name),
             'release_date' => $this->release_date,
             'text' => $this->text,
             'stock' => $this->stock,
             'product_images'=>ProductImageResource::collection($this->whenLoaded('product_images')),
-            "created_at" => $this->created_at,
+            "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at,
         ];
 

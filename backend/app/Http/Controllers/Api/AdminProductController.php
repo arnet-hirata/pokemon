@@ -21,7 +21,7 @@ class AdminProductController extends Controller
     public function index()
     {
         //
-        $products = Product::all();
+        $products = Product::with('category')->get();
         return AdminProductResource::collection($products);
 
     }
@@ -36,11 +36,10 @@ class AdminProductController extends Controller
 
         try{
 
-
         // 片方失敗したらロールバック
         $product = DB::transaction(function() use ($request){
             // productテーブルへ新規商品を登録
-            $product = Product::create($request->validated());
+            $product = Product::with('category')->create($request->validated());
 
 
             // product_imageテーブルへ商品画像を挿入
@@ -58,6 +57,7 @@ class AdminProductController extends Controller
             ]);
             }
             }
+            return $product;
         });
 
         $product->load('product_images');
@@ -78,7 +78,7 @@ class AdminProductController extends Controller
     public function show(string $id)
     {
         //
-            $product = Product::with('product_images')->findOrFail($id);
+            $product = Product::with(['product_images','category'])->findOrFail($id);
         // 単一データの場合は、ProductResource を適用
 
         return new AdminProductResource($product);
@@ -126,7 +126,7 @@ class AdminProductController extends Controller
             ]);
             }
             }
-            return $product;
+            // return $product;
         });
         $product->load('product_images');
             // 成功レスポンス
