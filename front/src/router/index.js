@@ -4,6 +4,9 @@ import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 import IndexView from '@/views/products/IndexView.vue'
 import ProductSearchView from '@/views/ProductSearchView.vue'
+import UserEditView from '@/views/UserEditView.vue'
+import MypageView from '@/views/MypageView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,7 +44,17 @@ const router = createRouter({
       path: '/products/search',
       name: 'ProductSearch',
       component: ProductSearchView,
-    }
+    },
+    {
+      path: '/user/edit',
+      name: 'edit',
+      component: UserEditView,
+    },
+    {
+      path: '/mypage',
+      name: 'mypage',
+      component: MypageView,
+    },
   ]
 })
 

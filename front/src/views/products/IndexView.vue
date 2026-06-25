@@ -14,8 +14,8 @@
         products.value = response.data || response
         console.log(products)
     } catch (err) {
-        console.error('書籍の取得に失敗:', err)
-        error.value = '書籍の取得に失敗しました'
+        console.error('データの取得に失敗:', err)
+        error.value = 'データの取得に失敗しました'
     } finally {
         loading.value = false
     }
