@@ -1,6 +1,8 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+
 </script>
 
 <template>
@@ -11,7 +13,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/category">カテゴリー</RouterLink>
         <RouterLink to="/favorite">お気に入り</RouterLink>
         <RouterLink to="/cart">カート</RouterLink>
-        <RouterLink to="/search">検索</RouterLink>
+        <RouterLink to="/products/search">検索</RouterLink>
         <RouterLink to="/mypage">マイページ</RouterLink>
       </nav>
     </div>

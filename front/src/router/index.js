@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 import IndexView from '@/views/products/IndexView.vue'
-
+import ProductSearchView from '@/views/ProductSearchView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,12 +37,12 @@ const router = createRouter({
       name: 'index',
       component: IndexView,
     },
-    // {
-    //   path: '/products/search',
-    //   name: 'ProductSearch',
-    //   component: ProductSearchView
-    // }
-  ],
+    {
+      path: '/products/search',
+      name: 'ProductSearch',
+      component: ProductSearchView,
+    }
+  ]
 })
 
 export default router

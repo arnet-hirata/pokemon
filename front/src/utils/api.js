@@ -1,7 +1,3 @@
-// localStorageにtokenがあればそれを使う
-// なければ使わない
-// get, post, put, deleteをそれぞれ含む
-
 const API_BASE_URL = 'http://localhost:8000/api'
 
 export const apiClient = {
@@ -11,20 +7,16 @@ export const apiClient = {
             headers: {
                 'Authorization': token ? `Bearer ${token}` : '',
                 'Content-Type': 'application/json',
-                'Accept': 'application/json', // 追加
-
+                'Accept': 'application/json',
             }
         })
-        
-        const data = await response.json()
-        
-        if (!response.ok) {
-            throw data // エラーレスポンスをthrow
-        }
-        
+        // 空ボディ（204など）でも落ちないように、一度テキストで受けてから判定
+        const text = await response.text()
+        const data = text ? JSON.parse(text) : null
+        if (!response.ok) throw data
         return data
     },
-    
+
     async post(endpoint, data) {
         const token = localStorage.getItem('token')
         const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -32,21 +24,16 @@ export const apiClient = {
             headers: {
                 'Authorization': token ? `Bearer ${token}` : '',
                 'Content-Type': 'application/json',
-                'Accept': 'application/json', // 追加
-
+                'Accept': 'application/json',
             },
             body: JSON.stringify(data)
         })
-        
-        const responseData = await response.json()
-        
-        if (!response.ok) {
-            throw responseData // エラーレスポンスをthrow
-        }
-        
+        const text = await response.text()
+        const responseData = text ? JSON.parse(text) : null
+        if (!response.ok) throw responseData
         return responseData
     },
-    
+
     async put(endpoint, data) {
         const token = localStorage.getItem('token')
         const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -54,21 +41,16 @@ export const apiClient = {
             headers: {
                 'Authorization': token ? `Bearer ${token}` : '',
                 'Content-Type': 'application/json',
-                'Accept': 'application/json', // 追加
-
+                'Accept': 'application/json',
             },
             body: JSON.stringify(data)
         })
-        
-        const responseData = await response.json()
-        
-        if (!response.ok) {
-            throw responseData
-        }
-        
+        const text = await response.text()
+        const responseData = text ? JSON.parse(text) : null
+        if (!response.ok) throw responseData
         return responseData
     },
-    
+
     async delete(endpoint) {
         const token = localStorage.getItem('token')
         const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -76,17 +58,13 @@ export const apiClient = {
             headers: {
                 'Authorization': token ? `Bearer ${token}` : '',
                 'Content-Type': 'application/json',
-                'Accept': 'application/json', // 追加
-
+                'Accept': 'application/json',
             }
         })
-        
-        const responseData = await response.json()
-        
-        if (!response.ok) {
-            throw responseData
-        }
-        
+        // DELETE は 204（ボディ無し）で返ることが多いので、ここの対応が効く
+        const text = await response.text()
+        const responseData = text ? JSON.parse(text) : null
+        if (!response.ok) throw responseData
         return responseData
     }
 }
