@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CartItem extends Model
 {
+
+    protected $fillable = [
+        'product_id'
+    ];
+
     public function products(){
         return $this->belongsTo(Product::class);
     }

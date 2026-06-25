@@ -52,13 +52,13 @@ class ProductsController extends Controller
     }
     public function search(Request $request)
     {
-        $products = Product::query();
+        $query = Product::query();
 
         if($request->filled('name')){
-            $products->where('name', 'like', '%' . $request->name . '%');
+            $query->where('name', 'like', '%' . $request->name . '%');
         }
         return response()->json(
-            $products->get()
+            $query->get()
         );
     }
 }

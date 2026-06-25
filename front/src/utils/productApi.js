@@ -1,9 +1,7 @@
-import axios from 'axios'
+export const searchProducts = async(name) => {
+    const response = await fetch(
+    'http://127.0.0.1:8000/api/products/search?name=${encodeURIComponent(name)}' 
+    )
 
-export const searchProducts = (name) => {
-    return axios.get('http://127.0.0.1:8000/api/products/search', {
-        params: {
-            name: name
-        }
-    })
+return await response.json()
 }
