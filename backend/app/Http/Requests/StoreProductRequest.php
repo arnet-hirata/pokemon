@@ -27,8 +27,8 @@ class StoreProductRequest extends FormRequest
                 'name' => ['required','string','min:3','max:50'],
                 'price' => ['required','integer','min:1'],
                 'category_id' => ['required'],
-                'release_date'=> ['required'],
-                'text'=> ['required','min10','string'],
+                'release_date'=> ['date','required','before_or_equal:today'],
+                'text'=> ['required','min:5','string'],
                 'stock' => ['required','min:0','integer'],
         ];
     }

@@ -27,7 +27,7 @@ class UpdateProductRequest extends FormRequest
                 'name' => ['required','string','min:3','max:50'],
                 'price' => ['required','integer','min:1'],
                 'category_id' => ['required'],
-                'release_date'=> ['required'],
+                'release_date'=> ['date','required','before_or_equal:today'],
                 'text'=> ['required','min:1','string'],
                 'stock' => ['required','min:0','integer'],
         ];
