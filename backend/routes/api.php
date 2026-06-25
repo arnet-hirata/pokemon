@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminProductController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\api\MypageController;
+use App\Http\Controllers\Api\MypageController;
 use App\Http\Controllers\Api\ProductsController;
 
 Route::get('/user', function (Request $request) {
@@ -24,6 +24,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn (Request $request) => $request->user());
     Route::put('/user/edit/{id}', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user/edit/{id}', [MypageController::class, 'index']);
+    Route::get('/mypage', [MypageController::class, 'index']);
     
 });

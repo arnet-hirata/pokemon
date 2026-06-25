@@ -19,16 +19,11 @@ class OrderResource extends JsonResource
             'order_id' => $this->id,
             'pay_method' => $this->pay_method,
             'total_price' => $this->total_price,
-            'user' => [
-                'name'=>$this->user->name,
-                'email'=>$this->user->email,
-                'tel'=>$this->user->tel,
-                'postal'=>$this->user->postal,
-                'address'=>$this->user->address,
-            ]
-            // 'products'=>$this->order_details->map(function($detail){
-
-            // })
+            'user' => new UserResource(
+                $this->whenLoaded('user')
+            ),
+            'order_details' 
+            => OrderDetailResource::collection( $this->whenLoaded('order_details') ),
         ];
     }
 }
