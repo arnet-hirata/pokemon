@@ -12,10 +12,17 @@ class OrdersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $orders = Order::all();
+        $orders = Order::with([
+            'user',
+            'order_details.product'
+        ])
+        ->where('user_id',$request->user()->id)
+        ->latest()
+        ->get()
+        ;
         return OrderResource::collection($orders);
     }
 
@@ -30,9 +37,14 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request,string $id)
     {
         //
+        $order= Order::with('orderDetails.product')
+        ->where('user_id',$request->user()->id)
+        ->findOrFail(($id));
+
+        return OrderResource::collection($order);
     }
 
     /**

@@ -5,18 +5,22 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\MypageResource;
 
 class MypageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $users = User::all();
-        return UserResource::collection($users);
+        $users = User::with([
+            'orders.order_details.product'
+        ])
+        ->findOrFail($request->user()->id);
+        ;
+        return MypageResource::collection($users);
     }
 
     /**

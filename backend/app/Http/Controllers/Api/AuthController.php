@@ -107,7 +107,7 @@ class AuthController extends Controller
         $user->tel = $request->tel;
         $user->postal = $request->postal;
         $user->address = $request->address;
-        $user->password = $request->password->hash();
+        $user->password = Hash::make($request->password);
         $user->save();
 
         return  (new UserResource($user))
