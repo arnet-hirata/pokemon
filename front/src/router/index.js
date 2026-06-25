@@ -39,11 +39,6 @@ const router = createRouter({
       name: 'index',
       component: IndexView,
     },
-    // {
-    //   path: '/products/search',
-    //   name: 'ProductSearch',
-    //   component: ProductSearchView
-    // }
     {
       path: '/user/edit',
       name: 'edit',
@@ -54,7 +49,7 @@ const router = createRouter({
       name: 'mypage',
       component: MypageView,
     },
-  ],
+  ]
 })
 
 export default router
