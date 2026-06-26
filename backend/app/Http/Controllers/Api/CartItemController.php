@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class CartItemController extends Controller
 {
     /**
@@ -27,6 +27,7 @@ class CartItemController extends Controller
         ]);
 
         $cart = CartItem::create([
+            'user_id' => Auth::id(),
             'product_id' => $request->product_id
         ]);
         return response()->json([
