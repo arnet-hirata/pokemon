@@ -19,6 +19,10 @@ console.log(products.value);
         <div class="about">
             <h1>登録リスト</h1>
         </div>
+        <RouterLink to="/product/create">
+            <button>商品登録</button>
+        </RouterLink>
+        
         <div>
             <table>
                 <tr>
