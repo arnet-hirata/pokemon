@@ -49,13 +49,14 @@ const handleLogout = async () => {
     // ローカルストレージをクリア
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-
+    router.push('/login')
     // フォームを再表示
     isLoggedIn.value = false
     formData.email = ''
     formData.password = ''
+    
     showMessage('ログアウトしました', false)
-    router.push('/products/index')
+    
     
   }
   router.push('/login')
@@ -123,9 +124,5 @@ onMounted(()=>{
         </section>
 
     </div>
-    <div v-else>
-        <button @click="handleLogin">
-            ログインする
-        </button>
-    </div>
+    
 </template>
