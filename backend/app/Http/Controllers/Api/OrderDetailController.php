@@ -3,20 +3,31 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductResource;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
+use App\Http\Resources\OrderResource;
 
-class ProductsController extends Controller
+class OrderDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request,string $id)
     {
         //
-        $products = Product::with('product_images')->latest()->get();
-        return ProductResource::collection($products);
+        $orders = Order::with(['order_details.product'])
+        ->where('id',$id)
+        // ->where('id',$request->user()->id)
+        ->get();
+        // $orders= Order::with([
+        //     'user',
+        //     'order_details.product'
+        // ])
+        // ->where('user_id',Auth::id())
+        // ->latest()
+        // ->get();
+        return OrderResource::collection($orders);
     }
 
     /**
@@ -49,16 +60,5 @@ class ProductsController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-    public function search(Request $request)
-    {
-        $query = Product::query();
-
-        if($request->filled('name')){
-            $query->where('name', 'like', '%' . $request->name . '%');
-        }
-        return response()->json(
-            $query->get()
-        );
     }
 }

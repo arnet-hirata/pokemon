@@ -6,6 +6,7 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ProductImageResource;
+use App\Http\Resources\CategoryResource;
 
 class ProductResource extends JsonResource
 {
@@ -30,6 +31,9 @@ class ProductResource extends JsonResource
             ),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
+            'category' =>new CategoryResource(
+                $this->whenLoaded('category')
+            ),
         ];
     }
 }

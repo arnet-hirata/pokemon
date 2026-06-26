@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MypageController;
 use App\Http\Controllers\Api\ProductsController;
 use App\Http\Controllers\Api\CartItemController;
+use App\Http\Controllers\Api\OrderDetailController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -26,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/mypage', [MypageController::class, 'index']);
     Route::post('/cart', [CartItemController::class, 'store']);
+    Route::get('/order/detail/{id}', [OrderDetailController::class, 'index']);
 });
