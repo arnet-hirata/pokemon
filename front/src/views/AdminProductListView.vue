@@ -19,7 +19,7 @@ console.log(products.value);
         <div class="about">
             <h1>登録リスト</h1>
         </div>
-        <RouterLink to="/product/create">
+        <RouterLink to="/admin/product/create">
             <button>商品登録</button>
         </RouterLink>
         
@@ -35,7 +35,11 @@ console.log(products.value);
                     <th>更新日時</th>
                 </tr>
             <tr v-for="product in products" :key="product.id">
-                <td>{{ product.name }}</td>
+                <td>
+                    <RouterLink :to="`/admin/products/${product.id}`">
+                    {{ product.name }}
+                    </RouterLink>
+                </td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.category_name }}</td>
                 <td>{{ product.release_date }}</td>
