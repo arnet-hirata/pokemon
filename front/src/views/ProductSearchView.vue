@@ -24,7 +24,6 @@ const search = async () => {
 
 }
 const addToCartItem = async (productId) => {
-    console.log(quantities.value[productId],productId)
             const response = await apiClient.post('/cart',{
                 product_id: productId,
                 quantity: quantities.value[productId]
