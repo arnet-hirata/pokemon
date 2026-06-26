@@ -14,7 +14,6 @@ Route::get('/user', function (Request $request) {
 
 // 管理者
 Route::apiResource('admin/products', AdminProductController::class);
-Route::post('/cart', [CartItemController::class, 'store']);
 Route::get('/products/search', [ProductsController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login'])->name('api.login');
@@ -26,5 +25,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user/edit/{id}', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/mypage', [MypageController::class, 'index']);
-    
+    Route::post('/cart', [CartItemController::class, 'store']);
 });
