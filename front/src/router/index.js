@@ -7,7 +7,7 @@ import ProductSearchView from '@/views/ProductSearchView.vue'
 import UserEditView from '@/views/UserEditView.vue'
 import MypageView from '@/views/MypageView.vue'
 import AdminProductListView from '@/views/AdminProductListView.vue'
-
+import AdminProductCreateView from '@/views/AdminProductCreateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,7 +25,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
-    
+
     {
       path: '/login',
       name: 'login',
@@ -69,9 +69,9 @@ const router = createRouter({
       component: MypageView,
     },
     {
-      path: '/admin/products/create',
-      name: 'AdminProductsCreate',
-      component: MypageView,
+      path: '/admin/product/create',
+      name: 'AdminProductCreate',
+      component: AdminProductCreateView,
     },
     {
       path: '/admin/products/:id/edit',
