@@ -66,8 +66,8 @@ const editPage = async () => {
     router.push('/user/edit')
 }
 
-const handleLogin = async () => {
-    router.push('/login')
+const purchaseHistory = async (orderId) => {
+    router.push(`/order/detail/${orderId}`)
 }
 
 // ページ読み込み時にトークンがあるかチェック
@@ -107,12 +107,16 @@ onMounted(()=>{
         <section>
             <h2>購入履歴</h2>
 
-            <div v-for="order in orderData" :key="order.id">
+            <div v-for="order in orderData" :key="order.order_id">
                 
                 商品名:{{ order.name }}
                 購入金額:{{ order.pay_method }}
                 購入方法:{{ order.total_price }}
                 購入日:{{ order.created_at }}
+
+                <div>
+                    <button @click="purchaseHistory(order.order_id)">購入履歴の確認</button>
+                </div>
             </div>
             
         </section>

@@ -46,11 +46,7 @@
                 </div>
             </div>
         </div>
-        <div>
-            <button>
-                新商品をもっと見る
-            </button>
-        </div>
+        
     </div>
     <div>
 
