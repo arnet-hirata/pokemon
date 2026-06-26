@@ -80,7 +80,9 @@ const handleSubmit = async () => {
     
   } 
 }
-
+const goTop = async () => {
+    router.push('/products/index')
+}
 onMounted(()=>{
     editUser()
 })
@@ -119,9 +121,10 @@ onMounted(()=>{
         <div>
             <button>保存する</button>
         </div>
-        <div>
-            <button>戻る</button>
-        </div>
+        
     </form>
+    <div>
+        <button @click="goTop()">トップページへ</button>
+    </div>
 </div>
 </template>
