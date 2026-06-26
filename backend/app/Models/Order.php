@@ -13,7 +13,7 @@ class Order extends Model
     public function order_details(){
         return $this->hasMany(OrderDetail::class);
     }
-    public function Product(){
+    public function products(){
         return $this->belongsToMany(Product::class,'order_details','order_id', 'product_id')->withPivot('pay_method','total_price','order_status');
     }
     

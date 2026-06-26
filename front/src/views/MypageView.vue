@@ -7,17 +7,16 @@ import { apiClient } from '@/utils/api.js'
 
 const router = useRouter()
 
-const formData = ref({
+
+const userData = ref({
     name:'',
     email:'',
     tel:'',
     postal:'',
     address:'',
-    name:'',
-    pay_method:'',
-    total_price:'',
-    created_at:'',
+    
 })
+const orderData = ref({})
 
 const error = ref({})
 
@@ -25,15 +24,12 @@ const getUser = async()=>{
     try{
         const response = await apiClient.get('/mypage')
         
-        formData.value.name = response.name
-        formData.value.email = response.email
-        formData.value.tel = response.tel
-        formData.value.postal = response.postal
-        formData.value.address = response.address
-        formData.value.name = response.name
-        formData.value.pay_method = response.pay_method
-        formData.value.total_price = response.total_price
-        formData.value.created_at = response.created_at
+        userData.value.name = response.data[0].user.name
+        userData.value.email = response.data[0].user.email
+        userData.value.tel = response.data[0].user.tel
+        userData.value.postal = response.data[0].user.postal
+        userData.value.address = response.data[0].user.address
+        orderData.value = response.data
 
         console.log(response)
     }catch(error){
@@ -41,58 +37,35 @@ const getUser = async()=>{
     }
 }
 
-const updateUser = async()=>{
-    try{
-        await apiClient.get('/user',formData.value)
-        alert('ユーザー情報を更新しました')
+const handleLogout = async () => {
+  try {
+    // APIでログアウト
+    await apiClient.post('/logout', {})
+  } catch (error) {
+    console.error('ログアウトAPIエラー:', error)
+  } finally {
+    // ローカルストレージをクリア
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
 
-        router.push('/mypage')
-    }catch(error){
-        if(error.response?.status=== 442){
-            errors.value = error.response.data.errors
-        }
-
-        console.error(error)
-    }
-}
-
-const handleSubmit = async () => {
-//   if (!validatePasswords()) {
-//     return
-//   }
-
-
-//   isLoading.value = true
-
-  const registerData = {
-    name:formData.value.name ,
-    email:formData.value.email, 
-    tel:formData.value.tel,    
-    postal:formData.value.postal ,
-    address:formData.value.address ,
-    name:formData.value.name ,
-    pau_method:formData.value.pay_method ,
-    total_price:formData.value.total_price,
-    created_at:formData.value.created_at,
+    // フォームを再表示
+    isLoggedIn.value = false
+    formData.email = ''
+    formData.password = ''
+    showMessage('ログアウトしました', false)
     
   }
-  console.log(registerData)
-  try {
-    const data = await apiClient.get(`/user/edit/${formData.value.id}`, registerData)
-    
-    
-  } catch (error) {
-    console.error('登録エラー:', error)
-    
-    
-  } 
+  router.push('/login')
 }
-    
-    
-    // ページ読み込み時にトークンがあるかチェック
-    onMounted(()=>{
-        getUser()
-    })
+        
+const editPage = async () => {
+    router.push('/user/edit')
+}
+
+// ページ読み込み時にトークンがあるかチェック
+onMounted(()=>{
+    getUser()
+})
 
 
 </script>
@@ -101,22 +74,22 @@ const handleSubmit = async () => {
         <h1>マイページ</h1>
         <section>
             <h2>ユーザー情報</h2>
-            <div v-if="user">
+            <div >
                 <div>
-                    名前:{{ user.name }}
+                    名前:{{ userData.name }}
                 </div>
                 <div>
-                    メールアドレス:{{ user.email }}
+                    メールアドレス:{{ userData.email }}
                 </div>
                 <div>
-                    電話番号:{{ user.tel }}
+                    電話番号:{{ userData.tel }}
                 </div>
                 <div>
-                    郵便番号:{{ user.postal }}
+                    郵便番号:{{ userData.postal }}
                 </div>
                 
                 <div>
-                    <button @click="editPage">ユーザー情報を編集</button>
+                    <button @click="editPage()">ユーザー情報を編集</button>
                 </div>
             </div>
         </section>
@@ -124,7 +97,7 @@ const handleSubmit = async () => {
         <section>
             <h2>購入履歴</h2>
 
-            <div v-for="order in orders" :key="order.id">
+            <div v-for="order in orderData" :key="order.id">
                 
                 商品名:{{ order.name }}
                 購入金額:{{ order.pay_method }}
