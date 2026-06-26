@@ -10,8 +10,6 @@ import HelloWorld from './components/HelloWorld.vue'
     <div class="wrapper">
       <nav>
         <RouterLink to="/products/index">トップページ</RouterLink>
-        <RouterLink to="/category">カテゴリー</RouterLink>
-        <RouterLink to="/favorite">お気に入り</RouterLink>
         <RouterLink to="/cart">カート</RouterLink>
         <RouterLink to="/products/search">検索</RouterLink>
         <RouterLink to="/mypage">マイページ</RouterLink>

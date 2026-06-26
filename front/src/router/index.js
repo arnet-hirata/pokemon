@@ -28,7 +28,7 @@ const router = createRouter({
 
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: LoginView,
     },
     {
@@ -50,11 +50,13 @@ const router = createRouter({
       path: '/user/edit',
       name: 'edit',
       component: UserEditView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/mypage',
       name: 'mypage',
       component: MypageView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/admin/products',
@@ -79,4 +81,13 @@ const router = createRouter({
   ]
 })
 
+
+router.beforeEach((to) => {
+  // ログイン時に localStorage.setItem('token', '...') してある前提
+  const isLoggedIn = !!localStorage.getItem('token')
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    return { name: 'login', query: { redirect: to.fullPath } }
+  }
+})
 export default router

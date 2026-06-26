@@ -39,30 +39,36 @@ const getUser = async()=>{
     }
 }
 
-// const handleLogout = async () => {
-//   try {
-//     // APIでログアウト
-//     await apiClient.post('/logout', {})
-//   } catch (error) {
-//     console.error('ログアウトAPIエラー:', error)
-//   } finally {
-//     // ローカルストレージをクリア
-//     localStorage.removeItem('token')
-//     localStorage.removeItem('user')
-
-//     // フォームを再表示
-//     isLoggedIn.value = false
-//     formData.email = ''
-//     formData.password = ''
-//     showMessage('ログアウトしました', false)
+const handleLogout = async () => {
+  try {
+    // APIでログアウト
+    await apiClient.post('/logout', {})
+  } catch (error) {
+    console.error('ログアウトAPIエラー:', error)
+  } finally {
+    // ローカルストレージをクリア
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    router.push('/login')
+    // フォームを再表示
+    isLoggedIn.value = false
+    formData.email = ''
+    formData.password = ''
     
-//   }
-//   router.push('/login')
-// }
+    showMessage('ログアウトしました', false)
+    
+    
+  }
+  router.push('/login')
+}
         
-// const editPage = async () => {
-//     router.push('/user/edit')
-// }
+const editPage = async () => {
+    router.push('/user/edit')
+}
+
+const handleLogin = async () => {
+    router.push('/login')
+}
 
 // ページ読み込み時にトークンがあるかチェック
 onMounted(()=>{
@@ -72,7 +78,7 @@ onMounted(()=>{
 
 </script>
 <template>
-    <div>
+    <div v-if="userData">
         <h1>マイページ</h1>
         <section>
             <h2>ユーザー情報</h2>
@@ -89,7 +95,9 @@ onMounted(()=>{
                 <div>
                     郵便番号:{{ userData.postal }}
                 </div>
-                
+                <div>
+                    住所:{{ userData.address }}
+                </div>
                 <div>
                     <button @click="editPage()">ユーザー情報を編集</button>
                 </div>
@@ -116,4 +124,5 @@ onMounted(()=>{
         </section>
 
     </div>
+    
 </template>
