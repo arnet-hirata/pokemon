@@ -15,6 +15,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/cart">カート</RouterLink>
         <RouterLink to="/products/search">検索</RouterLink>
         <RouterLink to="/mypage">マイページ</RouterLink>
+        <RouterLink to="/admin/products">在庫管理</RouterLink>
       </nav>
     </div>
   </header>
