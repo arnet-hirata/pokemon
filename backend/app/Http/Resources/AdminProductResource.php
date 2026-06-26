@@ -27,7 +27,8 @@ class AdminProductResource extends JsonResource
             'text' => $this->text,
             'stock' => $this->stock,
             'product_images'=>ProductImageResource::collection($this->whenLoaded('product_images')),
-            "created_at" => $this->created_at->diffForHumans(),
+            "created_at" => $this->created_at,
+            "created" => $this->created_at->diffForHumans().'に登録',
             "updated_at" => $this->updated_at,
         ];
 
