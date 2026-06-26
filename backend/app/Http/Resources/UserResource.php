@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\OrderResource;
 
 class UserResource extends JsonResource
 {
@@ -27,6 +28,8 @@ class UserResource extends JsonResource
             'remember_token' => $this->remember_token,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
+            'orders' 
+            => OrderResource::collection( $this->whenLoaded('orders') ),
         ];
     }
 }

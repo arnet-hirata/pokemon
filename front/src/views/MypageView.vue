@@ -21,46 +21,48 @@ const orderData = ref({})
 const error = ref({})
 
 const getUser = async()=>{
+    const response = await apiClient.get('/mypage')
     try{
-        const response = await apiClient.get('/mypage')
+        // const response = await apiClient.get('/mypage')
         
-        userData.value.name = response.data[0].user.name
-        userData.value.email = response.data[0].user.email
-        userData.value.tel = response.data[0].user.tel
-        userData.value.postal = response.data[0].user.postal
-        userData.value.address = response.data[0].user.address
-        orderData.value = response.data
+        userData.value.name = response.data[0].name
+        userData.value.email = response.data[0].email
+        userData.value.tel = response.data[0].tel
+        userData.value.postal = response.data[0].postal
+        userData.value.address = response.data[0].address
+        orderData.value = response.data[0].orders
 
         console.log(response)
     }catch(error){
         console.error(error)
+        console.log(response)
     }
 }
 
-const handleLogout = async () => {
-  try {
-    // APIでログアウト
-    await apiClient.post('/logout', {})
-  } catch (error) {
-    console.error('ログアウトAPIエラー:', error)
-  } finally {
-    // ローカルストレージをクリア
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+// const handleLogout = async () => {
+//   try {
+//     // APIでログアウト
+//     await apiClient.post('/logout', {})
+//   } catch (error) {
+//     console.error('ログアウトAPIエラー:', error)
+//   } finally {
+//     // ローカルストレージをクリア
+//     localStorage.removeItem('token')
+//     localStorage.removeItem('user')
 
-    // フォームを再表示
-    isLoggedIn.value = false
-    formData.email = ''
-    formData.password = ''
-    showMessage('ログアウトしました', false)
+//     // フォームを再表示
+//     isLoggedIn.value = false
+//     formData.email = ''
+//     formData.password = ''
+//     showMessage('ログアウトしました', false)
     
-  }
-  router.push('/login')
-}
+//   }
+//   router.push('/login')
+// }
         
-const editPage = async () => {
-    router.push('/user/edit')
-}
+// const editPage = async () => {
+//     router.push('/user/edit')
+// }
 
 // ページ読み込み時にトークンがあるかチェック
 onMounted(()=>{
