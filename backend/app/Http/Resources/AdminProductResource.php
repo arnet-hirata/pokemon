@@ -17,20 +17,18 @@ class AdminProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-            return[
+        return [
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
             'category_id' => $this->category_id,
-            "category_name" =>  $this->whenLoaded('category',fn() => $this->category->name),
+            "category_name" =>  $this->whenLoaded('category', fn() => $this->category->name),
             'release_date' => $this->release_date,
             'text' => $this->text,
             'stock' => $this->stock,
-            'product_images'=>ProductImageResource::collection($this->whenLoaded('product_images')),
-            "created_at" => $this->created_at,
-            "created" => $this->created_at->diffForHumans().'に登録',
-            "updated_at" => $this->updated_at,
+            'product_images' => ProductImageResource::collection($this->whenLoaded('product_images')),
+            "created_at" => $this->created_at?->timezone('Asia/Tokyo')->format('Y-m-d H:i:s'),
+            "updated_at" => $this->updated_at?->timezone('Asia/Tokyo')->format('Y-m-d H:i:s'),
         ];
-
     }
 }
