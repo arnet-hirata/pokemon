@@ -23,12 +23,14 @@ class CartItemController extends Controller
     {
         // var_dump($request);
         $request->validate([
-            'product_id' => 'required|exists:products,id'
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1'
         ]);
 
         $cart = CartItem::create([
             'user_id' => Auth::id(),
-            'product_id' => $request->product_id
+            'product_id' => $request->product_id,
+            'quantity' => $request->quantity
         ]);
         return response()->json([
             'message' => 'カートに追加しました',
