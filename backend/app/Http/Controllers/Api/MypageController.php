@@ -19,14 +19,19 @@ class MypageController extends Controller
     public function index(Request $request)
     {
         //
-        $orders= Order::with([
-            'user',
-            'order_details.product'
-        ])
-        ->where('user_id',Auth::id())
+        $users = User::with(['orders.order_details.product'])
+        ->where('id',Auth::id())
+        // ->where('id',$request->user()->id)
         ->latest()
         ->get();
-        return OrderResource::collection($orders);
+        // $orders= Order::with([
+        //     'user',
+        //     'order_details.product'
+        // ])
+        // ->where('user_id',Auth::id())
+        // ->latest()
+        // ->get();
+        return UserResource::collection($users);
         
     }
 
