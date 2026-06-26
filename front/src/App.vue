@@ -9,7 +9,7 @@ import HelloWorld from './components/HelloWorld.vue'
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/index">トップページ</RouterLink>
+        <RouterLink to="/products/index">トップページ</RouterLink>
         <RouterLink to="/category">カテゴリー</RouterLink>
         <RouterLink to="/favorite">お気に入り</RouterLink>
         <RouterLink to="/cart">カート</RouterLink>
