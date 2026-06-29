@@ -19,6 +19,7 @@ const getCart = async () => {
         const response = await apiClient.get(`/cart`)
 
         carts.value = response.data || response
+        console.log(carts.value)
 }
 
 const order = () => {
@@ -26,7 +27,7 @@ const order = () => {
 }
 
 const removeCart = async (id) => {
-    const response = await apiClient.delete('/cart/${id}')
+    const response = await apiClient.delete(`/cart/${id}`)
 
     const data = response.data || response
 
@@ -71,12 +72,14 @@ const removeCart = async (id) => {
         <td>{{ cart.product.release_date }}</td>
         <td>{{ cart.product.text }}</td>
         <td>{{ cart.product.price * cart.quantity }}円</td>
+        <td><button @click="removeCart(cart.id)">削除</button></td>
     </tr>
 </tbody>
         </table>
 
         <button v-if="carts.length"
         @click="order">購入画面へ</button>
+
         <p v-else>カートに商品がありません</p>
 <h3 v-if="carts.length">合計: {{ totalPrice }}円</h3>
     </div>

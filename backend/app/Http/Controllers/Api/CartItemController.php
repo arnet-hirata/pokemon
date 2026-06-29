@@ -16,8 +16,6 @@ class CartItemController extends Controller
         $carts = CartItem::with('product')
         ->where('user_id', auth()->id())
         ->get();
-        
-        logger('carts debug', ['carts' => $carts->toArray()]); logger('auth id', ['id' => auth()->id()]);
 
         return response()->json($carts);
     }
