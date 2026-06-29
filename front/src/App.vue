@@ -8,6 +8,7 @@ import HelloWorld from './components/HelloWorld.vue'
 <template>
   <header>
     <div class="wrapper">
+      <h1>ポケマート</h1>
       <nav>
         <RouterLink to="/products/index">トップページ</RouterLink>
         <!-- <RouterLink to="/category">カテゴリー</RouterLink> -->
@@ -22,6 +23,12 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
+
+h1{
+  text-align: center;
+
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -58,6 +65,13 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
+
+  .title{
+    text-align: center;
+    padding: 30px 0;
+
+  }
+  
   header {
     display: flex;
     place-items: center;
