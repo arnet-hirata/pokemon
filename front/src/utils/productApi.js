@@ -10,7 +10,13 @@ const API_URL = 'http://127.0.0.1:8000/api/admin/products';
 
 // 一覧
 export const gethProducts = async () => {
-    const response = await fetch(API_URL);
+    const token = localStorage.getItem('token')
+    const response = await fetch(API_URL, {
+        headers: {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Accept': 'application/json',
+        }
+    });
 
     if (!response.ok) {
         throw new Error('商品一覧の取得に失敗しました');
@@ -40,9 +46,14 @@ export const getProduct = async (id) => {
 
 // 登録
 export const createProduct = async (formData) => {
+    const token = localStorage.getItem('token')
     const response = await fetch(API_URL,
         {
             method: 'POST',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+                'Accept': 'application/json',
+            },
             body: formData
         });
 

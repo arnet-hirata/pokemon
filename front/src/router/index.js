@@ -69,21 +69,25 @@ const router = createRouter({
       path: '/admin/products',
       name: 'AdminProductsList',
       component: AdminProductListView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/admin/products/:id',
       name: 'AdminProductDetail',
       component: AdminProductDetailView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/admin/product/create',
       name: 'AdminProductCreate',
       component: AdminProductCreateView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/admin/products/:id/edit',
       name: 'AdminProductsEdit',
       component: AdminProductEditView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/cart',
