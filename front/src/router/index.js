@@ -14,6 +14,7 @@ import PurchaseHistoryView from '@/views/PurchaseHistoryView.vue'
 import AdminProductCreateView from '@/views/AdminProductCreateView.vue'
 import CartView from '@/views/CartView.vue'
 import OrderView from '@/views/OrderView.vue'
+import AdminProductEditView from '@/views/AdminProductEditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,7 +83,7 @@ const router = createRouter({
     {
       path: '/admin/products/:id/edit',
       name: 'AdminProductsEdit',
-      component: MypageView,
+      component: AdminProductEditView,
     },
     {
       path: '/cart',

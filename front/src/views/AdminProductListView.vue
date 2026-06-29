@@ -46,6 +46,8 @@ console.log(products.value);
                 <td>{{ product.stock }}</td>
                 <td>{{ product.created_at}}</td>
                 <td>{{ product.updated_at }}</td>
+                <td><RouterLink :to="`/admin/products/${product.id}/edit`">編集
+                </RouterLink></td>
             </tr>
             </table>
             </div>
