@@ -19,12 +19,22 @@ export const gethProducts = async () => {
 };
 
 // 詳細
-export const gethProduct = async (id) => {
-    const response = await fetch('${API_URL}/${id}');
+export const getProduct = async (id) => {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`http://127.0.0.1:8000/api/admin/products/${id}`, {
+        headers: {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+    });
+    console.log(response.status);
+    console.log(response);
 
-    if (!response.ok) {
-        throw new Error('取得失敗');
-    }
+
+    // if (!response.ok) {
+    //     throw new Error('取得失敗');
+    // }
     return await response.json()
 };
 
