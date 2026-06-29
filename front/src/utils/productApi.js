@@ -51,13 +51,21 @@ export const createProduct = async (formData) => {
 
 // 編集
 export const updateProduct = async (id, formData) => {
+    const token = localStorage.getItem('token')
     formData.append('_method', 'PUT');
 
-    const response = await fetch('${API_URL}/${id}', {
+    const response = await fetch(`${API_URL}/${id}`, {
+
         method: 'POST',
+        headers: {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Accept': 'application/json',
+        },
         body: formData
     });
-
+    if (!response.ok) {
+        throw new Error('更新失敗');
+    }
     return await response.json()
 };
 
