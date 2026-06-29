@@ -55,6 +55,7 @@ const addToCartItem = async (productId) => {
                 <th>販売日</th>
                 <th>説明欄</th>
                 <th>在庫数</th>
+                <th>個数</th>
                 <th>購入</th>
             </tr>
         </thead>

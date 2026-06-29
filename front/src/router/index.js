@@ -11,6 +11,7 @@ import AdminProductListView from '@/views/AdminProductListView.vue'
 
 import AdminProductCreateView from '@/views/AdminProductCreateView.vue'
 import CartView from '@/views/CartView.vue'
+import OrderView from '@/views/OrderView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,6 +93,11 @@ const router = createRouter({
     //   component: PurchaseHistoryView,
     //   meta: { requiresAuth: true },
     // },
+    {
+      path: '/order',
+      name: 'Order',
+      component: OrderView,
+    },
   ]
 })
 
