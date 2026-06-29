@@ -9,19 +9,21 @@ use App\Http\Controllers\Api\ProductsController;
 use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\OrderDetailController;
 use App\Http\Controllers\Api\OrderController;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 // 管理者
-Route::apiResource('admin/products', AdminProductController::class);
+// Route::apiResource('admin/products', AdminProductController::class);
 Route::get('/products/search', [ProductsController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login'])->name('api.login');
 Route::apiResource('/products', ProductsController::class);
 // auth:sanctum で囲むとトークン必須（ログイン必要）
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', fn (Request $request) => $request->user());
+    Route::apiResource('admin/products', AdminProductController::class);
+    Route::get('/user', fn(Request $request) => $request->user());
     Route::put('/user/edit/{id}', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/mypage', [MypageController::class, 'index']);
