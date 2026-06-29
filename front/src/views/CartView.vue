@@ -25,6 +25,16 @@ const order = () => {
     router.push('/order')
 }
 
+const removeCart = async (id) => {
+    const response = await apiClient.delete('/cart/${id}')
+
+    const data = response.data || response
+
+    alert(data.message)
+
+    getCart()
+}
+
     onMounted(() => {
         getCart()
     })
