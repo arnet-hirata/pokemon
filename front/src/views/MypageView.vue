@@ -120,17 +120,16 @@ onMounted(()=>{
             </div> -->
             <table>
                 <tr>
-                    <th>商品名</th>
+                    <th>購入日</th>
                     <th>購入金額</th>
                     <th>購入方法</th>
-                    <th>購入日</th>
                     <th>購入履歴</th>
                 </tr>
             <tr v-for="order in orderData" :key="order.order_id">
-                <td>{{ order.name }}</td>
-                <td>{{ order.pay_method }}</td>
-                <td>{{ order.total_price }}</td>
                 <td>{{ order.created_at }}</td>
+                <td>¥{{ order.total_price }}</td>
+                <td>{{ order.pay_method }}</td>
+                
                 <td><button @click="purchaseHistory(order.order_id)">確認する</button></td>
             </tr>
             </table>

@@ -45,14 +45,12 @@ console.log(orderData.value);
                     <th>商品名</th>
                     <th>価格</th>
                     <th>個数</th>
-                    <th>支払方法</th>
                     <th>購入日時</th>
                 </tr>
             <tr v-for="order in orderData" :key="order.id">
-                <td>{{ order.name }}</td>
-                <td>{{ order.price }}</td>
+                <td>{{ order.product.name }}</td>
+                <td>{{ order.product.price }}</td>
                 <td>{{ order.quantity }}</td>
-                <td>{{ order.pay_method }}</td>
                 <td>{{ order.created_at }}</td>
             </tr>
             </table>

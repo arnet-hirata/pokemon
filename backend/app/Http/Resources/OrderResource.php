@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class OrderResource extends JsonResource
 {
@@ -24,6 +25,9 @@ class OrderResource extends JsonResource
             ),
             'order_details' 
             => OrderDetailResource::collection( $this->whenLoaded('order_details') ),
+            'created_at' => $this->created_at
+            ? Carbon::parse($this->created_at)->format('Y/m/d H:i:s')
+            : null,
         ];
     }
 }

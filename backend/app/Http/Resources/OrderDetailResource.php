@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class OrderDetailResource extends JsonResource
 {
@@ -21,7 +22,9 @@ class OrderDetailResource extends JsonResource
             'order_id' => $this->order_id,
             'quantity' => $this->quantity,
             'product_price' => $this->product_price,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at
+            ? Carbon::parse($this->created_at)->format('Y/m/d H:i:s')
+            : null,
             'updated_at' => $this->updated_at,
             'product' =>new ProductResource(
                 $this->whenLoaded('product')
