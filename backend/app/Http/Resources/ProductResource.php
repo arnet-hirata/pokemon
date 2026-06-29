@@ -18,7 +18,7 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-        return[
+        return [
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
@@ -26,12 +26,10 @@ class ProductResource extends JsonResource
             'release_date' => $this->release_date,
             'text' => $this->text,
             'stock' => $this->stock,
-            'product_images'=>$this->whenLoaded('product_images',fn()=>
-            ProductImageResource::collection($this->product_images)
-            ),
+            'product_images' => ProductImageResource::collection($this->whenLoaded('product_images')),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
-            'category' =>new CategoryResource(
+            'category' => new CategoryResource(
                 $this->whenLoaded('category')
             ),
         ];

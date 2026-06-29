@@ -32,9 +32,14 @@
         </div>
         <div>
             <div v-for="product in products" :key="product.id">
-                <div v-for="product_image in product.product_images" :key="product_image.id">
+                <img
+                v-if="product.product_images.length> 0"
+                :src="`http://127.0.0.1.8000/storage/${product.product_images[0].path}`"
+                width="100"
+                >
+                <!-- <div v-for="product_image in product.product_images" :key="product_image.id">
                     {{ product_image.path }}
-                </div>
+                </div> -->
                 <div>
                     {{ product.name }}
                 </div>
