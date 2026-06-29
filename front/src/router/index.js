@@ -92,12 +92,7 @@ const router = createRouter({
       name: 'orderDetail',
       component: PurchaseHistoryView,
       meta: { requiresAuth: true },
-    // {
-    //   path: '/order/detail/:id',
-    //   name: 'orderDetail',
-    //   component: PurchaseHistoryView,
-    //   meta: { requiresAuth: true },
-    // },
+    },
     {
       path: '/order',
       name: 'Order',
