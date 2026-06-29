@@ -1,7 +1,10 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { apiClient } from '@/utils/api'
+
+const router = useRouter()
 
 const carts = ref([])
 
@@ -16,6 +19,10 @@ const getCart = async () => {
         const response = await apiClient.get(`/cart`)
 
         carts.value = response.data || response
+}
+
+const order = () => {
+    router.push('/order')
 }
 
     onMounted(() => {
@@ -54,7 +61,9 @@ const getCart = async () => {
     </tr>
 </tbody>
         </table>
-        
+
+        <button v-if="carts.length"
+        @click="order">購入画面へ</button>
         <p v-else>カートに商品がありません</p>
 <h3 v-if="carts.length">合計: {{ totalPrice }}円</h3>
     </div>
