@@ -7,6 +7,8 @@ import ProductSearchView from '@/views/ProductSearchView.vue'
 import UserEditView from '@/views/UserEditView.vue'
 import MypageView from '@/views/MypageView.vue'
 import AdminProductListView from '@/views/AdminProductListView.vue'
+import AdminProductDetailView from '@/views/AdminProductDetailView.vue'
+
 import PurchaseHistoryView from '@/views/PurchaseHistoryView.vue'
 
 import AdminProductCreateView from '@/views/AdminProductCreateView.vue'
@@ -69,8 +71,8 @@ const router = createRouter({
     },
     {
       path: '/admin/products/:id',
-      name: 'AdminProductsDetail',
-      component: MypageView,
+      name: 'AdminProductDetail',
+      component: AdminProductDetailView,
     },
     {
       path: '/admin/product/create',
