@@ -13,12 +13,12 @@ const getPurchase = async()=>{
     try{
         // const response = await apiClient.get('/mypage')
         
-        orderData.value.name = response.data[0].name
-        orderData.value.price = response.data[0].price
-        
-        orderData.value.quantity = response.data[0].quantity
-        orderData.value.created_at = response.data[0].created_at
-
+        // orderData.value.name = response.data[0].name
+        // orderData.value.price = response.data[0].price
+        // orderData.value.quantity = response.data[0].quantity
+        // orderData.value.pay_method= response.data[0].pay_method
+        // orderData.value.created_at = response.data[0].created_at
+        orderData.value = response.data[0].order_details
         
     }catch(error){
         console.log(error)
@@ -37,23 +37,22 @@ console.log(orderData.value);
 <template>
     <div>
         <div class="about">
-            <h1>登録リスト</h1>
+            <h1>注文詳細</h1>
         </div>
         <div>
             <table>
                 <tr>
-                    <th>商品名product</th>
-                    <th>価格</th>orderdetail
-                    <th>個数</th>orderdetail
-                    <th>購入金額</th>order
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>個数</th>
+                    <th>支払方法</th>
                     <th>購入日時</th>
-                    <th></th>
                 </tr>
             <tr v-for="order in orderData" :key="order.id">
                 <td>{{ order.name }}</td>
                 <td>{{ order.price }}</td>
-                <td>{{ order.category_name }}</td>
                 <td>{{ order.quantity }}</td>
+                <td>{{ order.pay_method }}</td>
                 <td>{{ order.created_at }}</td>
             </tr>
             </table>
