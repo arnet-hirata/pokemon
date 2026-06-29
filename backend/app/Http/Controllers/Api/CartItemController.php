@@ -63,8 +63,22 @@ class CartItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $cart = CartItem::where('id', $id)
+        ->where('user_id', $request->user()->id)
+        ->first();
+
+        if(!$cart){
+            return response()->json([
+                'message' => '商品が見つかりません'
+            ], 404);
+        }
+
+        $cart->delete();
+
+        return response()->json([
+            'message' => 'カートから削除'
+        ]);
     }
 }
