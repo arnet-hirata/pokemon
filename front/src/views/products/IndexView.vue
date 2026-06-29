@@ -32,11 +32,18 @@
         </div>
         <div>
             <div v-for="product in products" :key="product.id">
-                <img
-                v-if="product.product_images.length> 0"
+                
+                <!-- <img
+                v-if="product.product_images.length > 0"
                 :src="`http://127.0.0.1.8000/storage/${product.product_images[0].path}`"
-                width="100"
-                >
+                width="80"
+                > -->
+            <div>
+<img
+  v-if="product.product_images.length > 0"
+  :src="`http://127.0.0.1:8000/storage/${product.product_images[0].path}`"
+  style="display:block; width:100px; height:auto; border:3px solid red;"
+>                </div>
                 <!-- <div v-for="product_image in product.product_images" :key="product_image.id">
                     {{ product_image.path }}
                 </div> -->
@@ -57,3 +64,13 @@
 
     </div>
 </template>
+
+
+<!-- <style scoped>
+.product-images {
+  display: block;
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+</style> -->
