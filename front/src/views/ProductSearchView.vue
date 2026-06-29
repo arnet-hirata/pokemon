@@ -64,7 +64,9 @@ const addToCartItem = async (productId) => {
             v-for="product in products"
             :key="product.id"
             >
-        <td>{{ product.name }}</td>
+        <td><RouterLink :to="`/admin/products/${product.id}`">
+                    {{ product.name }}
+                    </RouterLink></td>
         <td>{{ product.price }}</td>
         <td>{{ product.release_date }}</td>
         <td>{{ product.text }}</td>

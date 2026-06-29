@@ -52,7 +52,10 @@ const order = () => {
             v-for="cart in carts"
             :key="cart.id"
             >
-        <td>{{ cart.product.name }}</td>
+            
+        <td><RouterLink :to="`/admin/products/${cart.product.id}`">
+                    {{ cart.product.name }}
+                    </RouterLink></td>
         <td>{{ cart.product.price }}円</td>
         <td>{{ cart.quantity }}個</td>
         <td>{{ cart.product.release_date }}</td>
