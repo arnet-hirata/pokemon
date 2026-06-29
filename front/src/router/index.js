@@ -8,10 +8,12 @@ import UserEditView from '@/views/UserEditView.vue'
 import MypageView from '@/views/MypageView.vue'
 import AdminProductListView from '@/views/AdminProductListView.vue'
 import AdminProductDetailView from '@/views/AdminProductDetailView.vue'
-// import PurchaseHistoryView from '@/views/PurchaseHistoryView.vue'
+
+import PurchaseHistoryView from '@/views/PurchaseHistoryView.vue'
 
 import AdminProductCreateView from '@/views/AdminProductCreateView.vue'
 import CartView from '@/views/CartView.vue'
+import OrderView from '@/views/OrderView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,12 +89,17 @@ const router = createRouter({
       name: 'Cart',
       component: CartView,
     },
-    // {
-    //   path: '/order/detail/:id',
-    //   name: 'orderDetail',
-    //   component: PurchaseHistoryView,
-    //   meta: { requiresAuth: true },
-    // },
+    {
+      path: '/order/detail/:id',
+      name: 'orderDetail',
+      component: PurchaseHistoryView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: OrderView,
+    },
   ]
 })
 
