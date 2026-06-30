@@ -83,7 +83,7 @@ quantity.value = 1
         </div>
         
         </div>
-        <div>
+        <!-- <div>
             <select v-model="quantity">
                 <option v-for="n in product.stock" :key="n" :value="n">
                 {{ n }}個
@@ -92,7 +92,7 @@ quantity.value = 1
         </div>
         <div>
             <button @click="addToCartItem(product.id)">カートに追加</button>
-        </div>
+        </div> -->
     </div>
 
 </template>
