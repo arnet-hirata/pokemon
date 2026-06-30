@@ -23,11 +23,11 @@ const search = async () => {
         })
 
 }
-const addToCartItem = async (product) => {
+const addToCartItem = async (productID) => {
         try{
             const response = await apiClient.post('/cart',{
-                product_id: product.id,
-                quantity: quantities.value[product.id]
+                product_id: productID,
+                quantity: quantities.value[productID]
             })
             const data = response.data || response
             alert(data.message)

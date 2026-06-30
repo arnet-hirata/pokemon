@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 class CartItemController extends Controller
 {
     /**
@@ -26,15 +27,20 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
+
+        Log::debug('request', [
+    'quest' => $request,
+    're'=> $request->product_id,
+]);
         // var_dump($request);
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1'
         ]);
-
+        
         $product = Product::find($request->product_id);
 
-        if($product->stock ==0){
+        if($product->stock <=0){
             return response()->json([
                 'message' => '在庫がありません'
             ], 400);
@@ -55,6 +61,7 @@ class CartItemController extends Controller
             'message' => 'カートに追加しました',
             'cart' => $cart
         ]);
+        
     }
 
     /**
