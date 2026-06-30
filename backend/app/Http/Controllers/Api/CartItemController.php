@@ -13,10 +13,10 @@ class CartItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $carts = CartItem::with('product')
-        ->where('user_id', auth()->id())
+        ->where('user_id', $request->user()->id)
         ->get();
 
         return response()->json($carts);
@@ -28,10 +28,6 @@ class CartItemController extends Controller
     public function store(Request $request)
     {
 
-        Log::debug('request', [
-    'quest' => $request,
-    're'=> $request->product_id,
-]);
         // var_dump($request);
         $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -46,20 +42,43 @@ class CartItemController extends Controller
             ], 400);
         }
 
-        if($request->quantity > $product->stock){
-            return response()->json([
+        $carts = CartItem::where('user_id', $request->user()->id)
+        ->where('product_id', $request->product_id)
+        ->get();
+
+        if($carts->count()> 0){
+            $totalQuantity = $carts->sum('quantity') + $request->quantity;
+
+            if($totalQuantity > $product->stock){
+                return response()->json([
+                    'message' => '在庫数を超えています'
+            ], 400);
+            }
+            $firstCart = $carts->first();
+
+            $firstCart->quantity = $totalQuantity;
+            $firstCart->save();
+
+            CartItem::where('user_id', $request->user()->id)
+            ->where('product_id', $request->product_id)
+            ->where('id', '!=', $firstCart->id)
+            ->delete();
+
+        }else{
+            if($request->quantity > $product->stock){
+                return response()->json([
                 'message' => '在庫数を超えています'
             ], 400);
-        }
-
-        $cart = CartItem::create([
-            'user_id' => Auth::id(),
+            }
+CartItem::create([
+            'user_id' => $request->user()->id,
             'product_id' => $request->product_id,
             'quantity' => $request->quantity
         ]);
+        }
+
         return response()->json([
-            'message' => 'カートに追加しました',
-            'cart' => $cart
+            'message' => 'カートに追加しました'
         ]);
         
     }
