@@ -70,7 +70,7 @@ const removeCart = async (id) => {
         <td>{{ cart.product.price }}円</td>
         <td>{{ cart.quantity }}個</td>
         <td>{{ cart.product.release_date }}</td>
-        <td>{{ cart.product.text }}</td>
+        <td><p class="product-description">{{ cart.product.text }}</p></td>
         <td>{{ cart.product.price * cart.quantity }}円</td>
         <td><button @click="removeCart(cart.id)">削除</button></td>
     </tr>
@@ -85,3 +85,12 @@ const removeCart = async (id) => {
     </div>
 
 </template>
+
+<style>
+.product-description{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+</style>

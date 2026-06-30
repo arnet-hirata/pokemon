@@ -69,7 +69,7 @@ const addToCartItem = async (productId) => {
                     </RouterLink></td>
         <td>{{ product.price }}</td>
         <td>{{ product.release_date }}</td>
-        <td>{{ product.text }}</td>
+        <td><p class="product-description">{{ product.text }}</p></td>
         <td>{{ product.stock }}</td>
         <td>
             
@@ -87,3 +87,13 @@ const addToCartItem = async (productId) => {
         <p v-else>検索結果がありません</p>
     </div>
 </template>
+
+<style>
+.product-description{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+</style>

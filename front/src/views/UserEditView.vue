@@ -72,14 +72,20 @@ const handleSubmit = async () => {
   console.log(registerData)
   try {
     const data = await apiClient.put(`/user/edit/${formData.value.id}`, registerData)
-    
+    alert('ユーザー情報を更新しました')
+
+        router.push('/mypage')
     
   } catch (error) {
     console.error('登録エラー:', error)
+    if(error.response?.status=== 442){
+            errors.value = error.response.data.errors
+        }
     
     
   } 
 }
+
 const goTop = async () => {
     router.push('/products/index')
 }
