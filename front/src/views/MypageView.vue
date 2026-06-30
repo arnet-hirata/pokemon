@@ -79,9 +79,9 @@ onMounted(()=>{
 </script>
 <template>
     <div v-if="userData">
-        <h1>マイページ</h1>
+        <h2>マイページ</h2>
         <section>
-            <h2>ユーザー情報</h2>
+            <h3>ユーザー情報</h3>
             <div >
                 <div>
                     名前:{{ userData.name }}
@@ -105,7 +105,7 @@ onMounted(()=>{
         </section>
         
         <section>
-            <h2>購入履歴</h2>
+            <h3>購入履歴</h3>
 
             <!-- <div v-for="order in orderData" :key="order.order_id">
                 
