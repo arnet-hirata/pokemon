@@ -2,7 +2,8 @@
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 
-
+// const user = JSON.parse(localStorage.getItem('user'));
+// console.log(user.role);
 </script>
 
 <template>
