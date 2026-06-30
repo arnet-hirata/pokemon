@@ -1,10 +1,12 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { apiClient } from '@/utils/api'
+import { useRouter } from 'vue-router'
 
 const user = ref({})
 const carts = ref([])
 const paymentMethod = ref('paypay')
+const router = useRouter();
 
 const loadOrder = async() => {
     const response = await apiClient.get('/order')
@@ -27,6 +29,8 @@ const order = async () => {
         })
         const data = response.data || response
         alert(data.message)
+
+        router.push('/mypage')
         
 }
 
