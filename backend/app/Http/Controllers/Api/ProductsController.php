@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Resources\AdminProductResource;
 
 class ProductsController extends Controller
 {
@@ -33,6 +34,11 @@ class ProductsController extends Controller
     public function show(string $id)
     {
         //
+         //
+        $product = Product::with(['product_images','category'])->findOrFail($id);
+        // 単一データの場合は、ProductResource を適用
+
+        return new AdminProductResource($product);
     }
 
     /**

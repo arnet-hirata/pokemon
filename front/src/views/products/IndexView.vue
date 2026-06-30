@@ -1,6 +1,7 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import { apiClient } from '@/utils/api.js'
+    import { getProduct } from '@/utils/productApi';
 
     const products = ref([])
     const loading = ref(true)
@@ -51,7 +52,7 @@
                     ￥{{ product.price }}
                 </div>
                 <div>
-                    <RouterLink :to="`/admin/products/${product.id}`">
+                    <RouterLink :to="`/products/productdetail/${product.id}`">
                     商品詳細へ
                     </RouterLink>
                 </div>

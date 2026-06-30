@@ -44,6 +44,25 @@ export const getProduct = async (id) => {
     return await response.json()
 };
 
+export const getProductDetail = async (id) => {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`http://127.0.0.1:8000/api/products/productdetail/${id}`, {
+        headers: {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+    });
+    console.log(response.status);
+    console.log(response);
+
+
+    // if (!response.ok) {
+    //     throw new Error('取得失敗');
+    // }
+    return await response.json()
+};
+
 // 登録
 export const createProduct = async (formData) => {
     const token = localStorage.getItem('token')

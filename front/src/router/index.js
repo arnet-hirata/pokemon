@@ -14,6 +14,7 @@ import PurchaseHistoryView from '@/views/PurchaseHistoryView.vue'
 import AdminProductCreateView from '@/views/AdminProductCreateView.vue'
 import CartView from '@/views/CartView.vue'
 import OrderView from '@/views/OrderView.vue'
+import ProductDetailView from '@/views/products/ProductDetailView.vue'
 import AdminProductEditView from '@/views/AdminProductEditView.vue'
 
 const router = createRouter({
@@ -112,6 +113,12 @@ const router = createRouter({
     //   component: AdminProductStockView,
     //   meta: { requiresAuth: true },
     // }
+    {
+      path: '/products/productdetail/:id',
+      name: 'productDetail',
+      component: ProductDetailView,
+      // meta: { requiresAuth: true },
+    },
   ]
 })
 
