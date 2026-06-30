@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class CartItemController extends Controller
@@ -30,6 +31,20 @@ class CartItemController extends Controller
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1'
         ]);
+
+        $product = Product::find($request->product_id);
+
+        if($product->stock ==0){
+            return response()->json([
+                'message' => '在庫がありません'
+            ], 400);
+        }
+
+        if($request->quantity > $product->stock){
+            return response()->json([
+                'message' => '在庫数を超えています'
+            ], 400);
+        }
 
         $cart = CartItem::create([
             'user_id' => Auth::id(),

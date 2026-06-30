@@ -17,19 +17,24 @@ const search = async () => {
 
         //検索結果の商品の初期数量1
         products.value.forEach(product => {
-            if(!quantities.value[product.id]) {
+            if(product.stock > 0) {
                 quantities.value[product.id] = 1
             }
         })
 
 }
-const addToCartItem = async (productId) => {
+const addToCartItem = async (product) => {
+        try{
             const response = await apiClient.post('/cart',{
-                product_id: productId,
-                quantity: quantities.value[productId]
+                product_id: product.id,
+                quantity: quantities.value[product.id]
             })
-            const result = response.data || response
+            const data = response.data || response
+            alert(data.message)
+        }catch(error){
+            alert("在庫がありません")
         }
+    }
     onMounted(() => {
         search()
     })
@@ -73,13 +78,14 @@ const addToCartItem = async (productId) => {
         <td>{{ product.stock }}</td>
         <td>
             
-            <select v-model="quantities[product.id]">
+            <select v-model="quantities[product.id]" :disabled="product.stock == 0">
                 <option v-for="n in product.stock" :key="n" :value="n">
                 {{ n }}個
             </option> </select>
         </td>
         <td>
-            <button @click="addToCartItem(product.id)">カートに追加</button>
+            <button v-if="product.stock > 0" @click="addToCartItem(product.id)">カートに追加</button>
+            
         </td>
     </tr>
 </tbody>
