@@ -82,9 +82,34 @@ export const updateProduct = async (id, formData) => {
 
 // 削除
 export const deleteProduct = async (id) => {
-    const response = await fetch('${API_URL}/${id}', {
-        method: 'DELETE'
+    const token = localStorage.getItem('token')
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Accept': 'application/json'
+        },
     });
-
+    if (!response.ok) {
+        throw new Error('削除に失敗しました');
+    }
     return await response.json()
 };
+
+// export const changeStock = async (id, data) => {
+//     const token = localStorage.getItem('token')
+
+//     const response = await fetch(`${API_URL}/${id}/stock`, {
+//         method: 'POST',
+//         headers: {
+//             'Authorization': token ? `Bearer ${token}` : '',
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//     });
+//     if (!response.ok) {
+//         throw new Error('在庫更新失敗');
+//     }
+//     return await response.json();
+// };

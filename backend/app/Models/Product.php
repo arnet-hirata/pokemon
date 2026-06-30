@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,19 +16,28 @@ class Product extends Model
         'stock',
     ];
 
-    public function cart_items(){
+    public function cart_items()
+    {
         return $this->hasMany(CartItem::class);
     }
-    public function product_images(){
+    public function product_images()
+    {
         return $this->hasMany(ProductImage::class);
     }
-    public function order_details(){
+    public function order_details()
+    {
         return $this->hasMany(OrderDetail::class);
     }
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function orders(){
-        return $this->belongsToMany(Order::class,'order_details','product_id', 'order_id')->withPivot('quantity','product_price','created_at');
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_details', 'product_id', 'order_id')->withPivot('quantity', 'product_price', 'created_at');
+    }
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
 }

@@ -106,6 +106,12 @@ const router = createRouter({
       name: 'Order',
       component: () => import('@/views/OrderView.vue')
     },
+    // {
+    //   path: '/admin/products/:id/stock',
+    //   name: 'AdminProductStock',
+    //   component: AdminProductStockView,
+    //   meta: { requiresAuth: true },
+    // }
   ]
 })
 
