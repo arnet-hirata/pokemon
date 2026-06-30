@@ -17,15 +17,13 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // 管理者
-Route::middleware(['auth:sanctum', 'can:paid-user'])->group(function () {
-    Route::apiResource('admin/products', AdminProductController::class);
-});
+
 // Route::post('/admin/products/{id}/stock', [AdminStockController::class, 'store']);
 // Route::apiResource('admin/products', AdminProductController::class);
 Route::get('/products/search', [ProductsController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login'])->name('api.login');
-Route::apiResource('/products', ProductsController::class);
+
 // auth:sanctum で囲むとトークン必須（ログイン必要）
 Route::middleware('auth:sanctum')->group(function () {
     // Route::apiResource('admin/products', AdminProductController::class);
@@ -39,4 +37,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/order', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
     Route::delete('/cart/{id}', [CartItemController::class, 'destroy']);
+    Route::get('/products/productdetail/{id}', [ProductsController::class,'show']);
+});
+
+Route::apiResource('/products', ProductsController::class);
+Route::middleware(['auth:sanctum', 'can:paid-user'])->group(function () {
+    Route::apiResource('admin/products', AdminProductController::class);
 });
