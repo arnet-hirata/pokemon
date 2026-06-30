@@ -26,33 +26,26 @@
     })
 </script>
 <template>
-    <div>
+    <div class="list">
         <div class="about">
             <h2>新商品</h2>
         </div>
-        <div class="picture-container">
+        <div class="product-container">
             <div v-for="product in products" :key="product.id" class="product-area">
                 
-                <!-- <img
-                v-if="product.product_images.length > 0"
-                :src="`http://127.0.0.1.8000/storage/${product.product_images[0].path}`"
-                width="80"
-                > -->
-                <div>
+                <div class="image-area">
                     <img
                     v-if="product.product_images.length > 0"
                     :src="`http://127.0.0.1:8000/storage/${product.product_images[0].path}`"
-                    style="display:block; width:100px; height:auto; border:3px solid red;"
+                    class="picture"
                     >                
                 </div>
-                <!-- <div v-for="product_image in product.product_images" :key="product_image.id">
-                    {{ product_image.path }}
-                </div> -->
+                
                 <div>
                     {{ product.name }}
                 </div>
                 <div>
-                    {{ product.text }}
+                    <p class="product-description">{{ product.text }}</p>
                 </div>
                 <div>
                     ￥{{ product.price }}
@@ -73,11 +66,15 @@
 
 
 <style>
+.list{
+    width: 90%;
+    margin: 0 auto;
+}
 
 h2{
     padding: 28px;
 }
-.picture-container{
+.product-container{
     display: flex;
     gap:16px;
     flex-wrap: wrap;
@@ -97,5 +94,18 @@ h2{
     object-fit: cover;
     
 }
+
+.product-description{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* .picture{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+} */
 
 </style>
